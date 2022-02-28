@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:we_chat/componants/constant.dart';
 import 'package:we_chat/firebase_options.dart';
+import 'package:we_chat/pages/chat_page.dart';
 import 'package:we_chat/pages/login.dart';
 import 'package:we_chat/pages/register.dart';
 
@@ -21,10 +23,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        Login().id: (context) => Login(),
-        Register().id: (context) => Register()
+        loginId: (context) => Login(),
+        registerId: (context) => Register(),
+        chatPageId: (context) => ChatPage(),
       },
-      home: Login(),
+      home: ChatPage(),
     );
   }
 }
