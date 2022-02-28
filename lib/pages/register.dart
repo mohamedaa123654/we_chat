@@ -133,7 +133,7 @@ class _RegisterState extends State<Register> {
     try {
       FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email!, password: password!);
-      Navigator.pushNamed(context, chatPageId);
+      Navigator.pushNamed(context, chatPageId, arguments: email);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

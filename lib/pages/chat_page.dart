@@ -5,13 +5,15 @@ import 'package:we_chat/componants/constant.dart';
 import 'package:we_chat/models/message_model.dart';
 
 class ChatPage extends StatelessWidget {
-  final _controllerAnimation = ScrollController();
+  // final _controllerAnimation = ScrollController();
+  ScrollController _controllerAnimation = new ScrollController();
   CollectionReference messages =
       FirebaseFirestore.instance.collection(kMessagesCollections);
   TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    var email = ModalRoute.of(context)!.settings.arguments.toString();
     return StreamBuilder<QuerySnapshot>(
         stream: messages.orderBy(kCreatedAt, descending: true).snapshots(),
         builder: (context, snapshot) {
@@ -49,9 +51,13 @@ class ChatPage extends StatelessWidget {
                         reverse: true,
                         itemCount: messagesList.length,
                         itemBuilder: (context, index) {
-                          return ChatBubble(
-                            message: messagesList[index],
-                          );
+                          return messagesList[index].id == email
+                              ? ChatBubble(
+                                  message: messagesList[index],
+                                )
+                              : ChatBubbleForFriend(
+                                  message: messagesList[index],
+                                );
                         }),
                   ),
                   Padding(
@@ -59,14 +65,17 @@ class ChatPage extends StatelessWidget {
                     child: TextField(
                       controller: controller,
                       onSubmitted: (data) {
-                        messages
-                            .add({kMessage: data, kCreatedAt: DateTime.now()});
+                        messages.add({
+                          kMessage: data,
+                          kCreatedAt: DateTime.now(),
+                          'id': email
+                        });
                         controller.clear();
                         // _controllerAnimation.animateTo(
-                        // _controllerAnimation.position.maxScrollExtent,
-                        // 0,
-                        // duration: Duration(seconds: 2),
-                        // curve: Curves.fastOutSlowIn,
+                        //   // _controllerAnimation.position.maxScrollExtent,
+                        //   0,
+                        //   duration: Duration(seconds: 2),
+                        //   curve: Curves.fastOutSlowIn,
                         // );
                       },
                       decoration: InputDecoration(
@@ -75,17 +84,18 @@ class ChatPage extends StatelessWidget {
                           onPressed: () {
                             messages.add({
                               kMessage: controller.text,
-                              kCreatedAt: DateTime.now()
+                              kCreatedAt: DateTime.now(),
+                              'id': email
                             });
                             controller.clear();
                             // _controllerAnimation.animateTo(
-                            //   _controllerAnimation.position.maxScrollExtent,
-                            // 0,
+                            //   // _controllerAnimation.position.maxScrollExtent,
+                            //   0,
                             //   duration: Duration(seconds: 2),
                             //   curve: Curves.fastOutSlowIn,
                             // );
                           },
-                          icon: Icon(Icons.send),
+                          icon: const Icon(Icons.send),
                           color: kPrimaryColor,
                         ),
                         border: OutlineInputBorder(
@@ -93,7 +103,7 @@ class ChatPage extends StatelessWidget {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: kPrimaryColor,
                           ),
                         ),
@@ -104,7 +114,16 @@ class ChatPage extends StatelessWidget {
               ),
             );
           } else {
-            return Text('Loading...');
+            return const Scaffold(
+              body: Center(
+                  child: Text(
+                'Loading...',
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: kPrimaryColor),
+              )),
+            );
           }
         });
   }

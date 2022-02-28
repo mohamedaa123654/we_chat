@@ -98,7 +98,8 @@ class _LoginState extends State<Login> {
                       if (formKey.currentState!.validate()) {
                         try {
                           await loginUser();
-                          Navigator.pushNamed(context, chatPageId);
+                          Navigator.pushNamed(context, chatPageId,
+                              arguments: email);
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'user-not-found') {
                             ScaffoldMessenger.of(context)

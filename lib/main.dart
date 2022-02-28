@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         registerId: (context) => Register(),
         chatPageId: (context) => ChatPage(),
       },
-      home: ChatPage(),
+      home: Login(),
     );
   }
 }
