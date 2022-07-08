@@ -1,16 +1,6 @@
-# we_chat
+## we_chat
 
-A new Flutter project.
+<h3>A Life Chat Flutter Project<h3>
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img  alt="Coding" height="600" src="https://user-images.githubusercontent.com/33372890/177998600-867294e8-83f9-40c0-ad11-a0785cf054e0.jpg"> <img  alt="Coding" height="600" src="https://user-images.githubusercontent.com/33372890/177999038-8bfb8c2c-cf42-43d5-80ac-0363beede926.jpg"> 
+  
